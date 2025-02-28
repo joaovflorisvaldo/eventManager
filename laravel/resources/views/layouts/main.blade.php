@@ -30,12 +30,25 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/events/create">Criar Evento</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/entrar">Entrar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/cadastrar">Cadastrar</a>
-                        </li>
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="/entrar">Entrar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cadastrar">Cadastrar</a>
+                            </li>
+                        @endguest
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard">Meus eventos</a>
+                            </li>
+                            <li class="nav-item">
+                                <form action="/logout" method="POST">
+                                    @csrf
+                                    <a class="nav-link" href="/logout" onclick="event.preventDefault(); this.closest('form').submit();">Sair</a>
+                                </form>
+                            </li>
+                        @endauth
                     </ul>
                 </div>
             </div>
