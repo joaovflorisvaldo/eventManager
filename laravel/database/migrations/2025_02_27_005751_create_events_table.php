@@ -18,6 +18,8 @@ return new class extends Migration
             $table->dateTime('date');
             $table->string('location');
             $table->integer('max_capacity');
+            $table->integer('current_capacity')->default(0);
+            $table->string('image')->nullable();
             $table->enum('status', ['aberto para inscrições', 'encerrado', 'cancelado']);
             $table->timestamps();
         });
