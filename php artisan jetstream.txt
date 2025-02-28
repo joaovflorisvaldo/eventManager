@@ -1,0 +1,3 @@
+composer require laravel/jetstream
+
+php artisan jetstream:install livewire foi usado livewire para autenticação do usuario
