@@ -42,7 +42,17 @@ sudo apt install mysql-server -y
 sudo apt install lamp-server^
 ```
 
----
+### 6. Instalar Laravel Jetstream
 
-Esse documento será atualizado com mais informações futuramente.
+```bash
+composer require laravel/jetstream
+```
+
+### 7. Instalar Livewire para Autenticação
+
+```bash
+php artisan jetstream:install livewire
+```
+
+---
 
