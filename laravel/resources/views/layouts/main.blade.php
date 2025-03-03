@@ -32,10 +32,10 @@
                         </li>
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="/entrar">Entrar</a>
+                                <a class="nav-link" href="/login">Entrar</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/cadastrar">Cadastrar</a>
+                                <a class="nav-link" href="/register">Cadastrar</a>
                             </li>
                         @endguest
                         @auth
