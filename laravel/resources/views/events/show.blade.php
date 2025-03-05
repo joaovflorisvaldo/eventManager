@@ -23,7 +23,11 @@
                             @if ($event->user_id == auth()->user()->id)
                                 <a href="/events/edit/{{ $event->id }}" class="btn btn-warning">Editar Evento</a>
                             @elseif (in_array(auth()->user()->id, $event->users->pluck('id')->toArray()))
-                                <a href="/events/leave/{{ $event->id }}" class="btn btn-danger">Sair do Evento</a>
+                                <form action="/events/leave/{{ $event->id }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="/events/leave/{{ $event->id }}" onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-danger">Sair do Evento</a>
+                                </form>
                             @else
                                 <form action="/events/join/{{ $event->id }}" method="POST">
                                     @csrf
