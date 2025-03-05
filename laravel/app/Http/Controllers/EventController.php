@@ -59,6 +59,12 @@ class EventController extends Controller
         $eventOwner = User::where('id', $event->user_id)->first()->toArray();
         $event['ownerName'] = $eventOwner['name'];
 
+        if($event->user_id == auth()->user()->id) {
+            $event['isOwner'] = true;
+        } else {
+            $event['isOwner'] = false;
+        }
+
         return view('events.show', ['event' => $event, 'eventOwner' => $eventOwner]);
     }
 
@@ -67,7 +73,9 @@ class EventController extends Controller
         $user = auth()->user();
         $events = $user->events;
 
-        return view('events.dashboard', ['events' => $events]);
+        $eventsAsParticipant = $user->eventsAsParticipant;
+
+        return view('events.dashboard', ['events' => $events, 'eventsAsParticipant' => $eventsAsParticipant]);
     }   
 
     public function destroy($id)
@@ -103,5 +111,21 @@ class EventController extends Controller
         $event->save();
     
         return redirect('/dashboard')->with('msg', 'Evento atualizado com sucesso!');
+    }
+
+    public function joinEvent($id)
+    {
+        $event = Event::findOrFail($id);
+        $user = auth()->user();
+        $event->users()->attach($user->id);
+        return redirect('/dashboard')->with('msg', 'Presença confirmada no evento ' . $event->title);
+    }
+
+    public function leaveEvent($id)
+    {
+        $event = Event::findOrFail($id);
+        $user = auth()->user();
+        $event->users()->detach($user->id);
+        return redirect('/dashboard')->with('msg', 'Presença cancelada no evento ' . $event->title);
     }
 }
